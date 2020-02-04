@@ -67,7 +67,32 @@ namespace Testing
             Assert::IsTrue(city.GetAdjacent(center, 1, 1) == lr, L"Lower right test");
         }
 
+        TEST_METHOD(TestCCityIterator)
+        {
+            // Construct a city object
+            CCity city;
 
+            // Add some tiles
+            auto tile1 = make_shared<CTileRoad>(&city);
+            auto tile2 = make_shared<CTileRoad>(&city);
+            auto tile3 = make_shared<CTileRoad>(&city);
+
+            city.Add(tile1);
+            city.Add(tile2);
+            city.Add(tile3);
+
+            // Does begin point to the first tile?
+            auto iter1 = city.begin();
+            auto iter2 = city.end();
+
+            Assert::IsTrue(tile1 == *iter1, L"First item correct");
+            ++iter1;
+            Assert::IsTrue(tile2 == *iter1, L"Second item correct");
+            ++iter1;
+            Assert::IsTrue(tile3 == *iter1, L"Third item correct");
+            ++iter1;
+            Assert::IsFalse(iter1 != iter2);
+        }
         
 	};
 }

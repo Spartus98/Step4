@@ -168,6 +168,13 @@ void CChildView::OnPaint()
      * Actually Draw the city
      */
     mCity.OnDraw(&graphics);
+
+    Pen pen(Color::Green, 2);
+
+    for (auto tile : mCity)
+    {
+        tile->DrawBorder(&graphics, &pen);
+    }
 }
 
 

@@ -45,6 +45,47 @@ public:
 
     std::shared_ptr<CTile> GetAdjacent(std::shared_ptr<CTile> tile, int dx, int dy);
     std::shared_ptr<CTile> GetAdjacent(CTile *tile, int dx, int dy);
+    
+    /** Iterator that iterates over the city tiles */
+    class Iter
+    {
+    public:
+        /** Constructor
+         * \param city The city we are iterating over */
+        Iter(CCity* city, int pos) : mCity(city), mPos(pos) {}
+
+        /** Test for end of the iterator
+         * \returns True if we this position equals not equal to the other position */
+        bool operator!=(const Iter& other) const
+        {
+            return mPos != other.mPos;
+        }
+
+        /** Get value at current position
+         * \returns Value at mPos in the collection */
+        std::shared_ptr<CTile> operator *() const { return mCity->mTiles[mPos]; }
+
+        /** Increment the iterator
+         * \returns Reference to this iterator */
+        const Iter& operator++()
+        {
+            mPos++;
+            return *this;
+        }
+
+
+    private:
+        CCity* mCity;   ///< City we are iterating over
+        int mPos;       ///< Position in the collection
+    };
+
+    /** Get an iterator for the beginning of the collection
+     * \returns Iter object at position 0 */
+    Iter begin() { return Iter(this, 0); }
+
+    /** Get an iterator for the end of the collection
+     * \returns Iter object at position past the end */
+    Iter end() { return Iter(this, mTiles.size()); }
 
 private:
 	void XmlTile(const std::shared_ptr<xmlnode::CXmlNode> &node);
