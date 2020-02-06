@@ -64,6 +64,7 @@ private:
 
 	CPointHistory mMouseHistory;	///< Mouse movement history
 
+    bool mShowHistory = false;      ///< bool to show mouse movement history
 public:
     afx_msg BOOL OnEraseBkgnd(CDC* pDC);
     afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
@@ -93,5 +94,8 @@ public:
     /** \endcond */
 
     afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnUpdateViewMousehistory(CCmdUI* pCmdUI);
+    afx_msg void OnViewMousehistory();
+    afx_msg void OnBuildingsCount();
 };
 

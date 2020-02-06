@@ -25,6 +25,56 @@ public:
 
     void Add(Gdiplus::Point p);
 
+    class Iter
+    {
+    public:
+        /** Constructor
+         * \param mouseHistory The mouseHistory we are iterating over */
+        Iter(CPointHistory *mouseHistory,int list, int pos) : mMouseHistory(mouseHistory),mList(list) ,mPos(pos) {}
+
+        /** Test for end of the iterator
+         * \returns True if we this position equals not equal to the other position */
+        bool operator!=(const Iter& other) const
+        {
+            
+         return mPos != other.mPos || mList != other.mList;
+            
+        }
+
+        /** Get value at current position
+         * \returns Value at mPos in the collection */
+        Gdiplus::Point operator *() const { return mMouseHistory->mPotatoLists[mList][mPos]; }
+
+        /** Increment the iterator
+         * \returns Reference to this iterator */
+        const Iter& operator++()
+        { 
+            mList++;
+            if (mList % NumLists == 0) 
+            {
+                mList = 0;
+                mPos++;
+            }
+            
+            return *this; 
+        }
+
+
+    private:
+        CPointHistory *mMouseHistory;   ///< mouseHistory we are iterating over
+        int mList;      ///< Current list we are looking at
+        int mPos;       ///< Position in the collection
+    };
+
+    /** Get an iterator for the beginning of the collection
+     * \returns Iter object at position 0 */
+    Iter begin() { return Iter(this, 0, 0); }
+
+    /** Get an iterator for the end of the collection
+     * \returns Iter object at position past the end */
+    Iter end() { return Iter(this, mCurrentList, mPotatoLists[mCurrentList].size()); }
+    // (currentList+1) % numlist
+
 protected:
     /// Data is stored in alternating locations in 
     /// the multiple hot potato lists.

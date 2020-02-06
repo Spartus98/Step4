@@ -11,6 +11,7 @@
 #include <string>
 #include <memory>
 #include "XmlNode.h"
+#include "TileVisitor.h"
 
 class CCity;
 
@@ -121,6 +122,11 @@ public:
     void SetZoning(CTile::Zonings zoning) { mZoning = zoning; }
 
     void PropertiesDlg();
+
+    /** Accept a visitor
+     * \param visitor The visitor we accept */
+    virtual void Accept(CTileVisitor* visitor) = 0;
+
 
 protected:
     CTile(CCity *city);

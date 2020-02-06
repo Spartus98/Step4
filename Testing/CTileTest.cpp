@@ -28,6 +28,10 @@ namespace Testing
         CTileMock(const CTileMock &) = delete;
 
         ~CTileMock() {}
+
+        /** Accept a visitor
+       * \param visitor The visitor we accept */
+        virtual void Accept(CTileVisitor* visitor) override { }
     };
 
 

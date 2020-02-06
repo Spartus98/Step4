@@ -29,5 +29,9 @@ public:
 
     virtual std::shared_ptr<xmlnode::CXmlNode> XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node) override;
     virtual void XmlLoad(const std::shared_ptr<xmlnode::CXmlNode> &node);
+
+    /** Accept a visitor
+    * \param visitor The visitor we accept */
+    virtual void Accept(CTileVisitor* visitor) override { visitor->VisitBuilding(this); }
 };
 

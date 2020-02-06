@@ -31,6 +31,10 @@ public:
 
     void SetAdjacencies(bool ul, bool ur, bool ll, bool lr);
 
+    /** Accept a visitor
+    * \param visitor The visitor we accept */
+    virtual void Accept(CTileVisitor* visitor) override { visitor->VisitRoad(this); }
+
 private:
     /// The current adjacency integer or -1 if none
     int mCurrentAdj = -1;

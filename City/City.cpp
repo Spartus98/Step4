@@ -8,6 +8,8 @@
 #include "TileRoad.h"
 #include "TileCoalmine.h"
 
+#include "TileVisitor.h"
+
 using namespace std;
 using namespace xmlnode;
 
@@ -335,4 +337,14 @@ std::shared_ptr<CTile> CCity::GetAdjacent(CTile *tile, int dx, int dy)
 
     // If nothing found
     return nullptr;
+}
+/** Accept a visitor for the collection
+ * \param visitor The visitor for the collection
+ */
+void CCity::Accept(CTileVisitor* visitor)
+{
+    for (auto tile : mTiles)
+    {
+        tile->Accept(visitor);
+    }
 }

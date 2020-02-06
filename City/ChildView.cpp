@@ -13,6 +13,10 @@
 #include "TileBuilding.h"
 #include "TileRoad.h"
 #include "TileCoalmine.h"
+#include "BuildingCounter.h"
+
+#include <sstream>
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -84,6 +88,9 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
     ON_COMMAND(ID_LANDSCAPING_ROAD, &CChildView::OnLandscapingRoad)
     ON_COMMAND(ID_BUSINESSES_COALMINE, &CChildView::OnBusinessesCoalmine)
     ON_WM_LBUTTONDBLCLK()
+	ON_UPDATE_COMMAND_UI(ID_VIEW_MOUSEHISTORY, &CChildView::OnUpdateViewMousehistory)
+    ON_COMMAND(ID_VIEW_MOUSEHISTORY, &CChildView::OnViewMousehistory)
+    ON_COMMAND(ID_BUILDINGS_COUNT, &CChildView::OnBuildingsCount)
 END_MESSAGE_MAP()
 /// \endcond
 
@@ -137,6 +144,35 @@ void CChildView::OnPaint()
         mLastTime = time.QuadPart;
         mTimeFreq = double(freq.QuadPart);
     }
+
+    // draw the history of the mouse
+    
+    if (mShowHistory)
+    {
+        Pen pen(Color(255, 255, 0));
+        bool first = true;
+        Point p1;
+
+        for (auto p2 : mMouseHistory)
+        {
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                graphics.DrawLine(&pen, p1, p2);
+            }
+
+            p1 = p2;
+        }
+    }
+   
+
+
+
+
+
 
     /*
     * Compute the elapsed time since the last draw
@@ -472,3 +508,28 @@ void CChildView::OnBusinessesCoalmine()
 }
 
 /** \endcond */
+
+/** Menu handler that can show Mouse History */
+void CChildView::OnViewMousehistory()
+{
+    mShowHistory = !mShowHistory;
+}
+
+/** Menu handler that can show Mouse History, this is what checks the option */
+void CChildView::OnUpdateViewMousehistory(CCmdUI* pCmdUI)
+{
+    pCmdUI->SetCheck(mShowHistory);
+}
+
+
+/** Menu handler that counts the number of builds */
+void CChildView::OnBuildingsCount()
+{
+    CBuildingCounter visitor;
+    mCity.Accept(&visitor);
+    int cnt = visitor.GetNumBuildings();
+
+    wstringstream str;
+    str << L"There are " << cnt << L" buildings.";
+    AfxMessageBox(str.str().c_str());
+}

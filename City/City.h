@@ -45,6 +45,8 @@ public:
 
     std::shared_ptr<CTile> GetAdjacent(std::shared_ptr<CTile> tile, int dx, int dy);
     std::shared_ptr<CTile> GetAdjacent(CTile *tile, int dx, int dy);
+
+    void Accept(CTileVisitor* visitor);
     
     /** Iterator that iterates over the city tiles */
     class Iter

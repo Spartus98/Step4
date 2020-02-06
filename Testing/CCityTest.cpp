@@ -4,11 +4,30 @@
 #include "City.h"
 #include "TileRoad.h"
 
+#include "TileRoad.h"
+#include "TileLandscape.h"
+#include "TileCoalmine.h"
+#include "TileBuilding.h"
+
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Testing
 {
+    class CTestVisitor : public CTileVisitor
+    {
+    public:
+        virtual void VisitRoad(CTileRoad* road) override { mNumRoads++; }
+        virtual void VisitBuilding(CTileBuilding* building) override { mNumBuildings++; }
+        virtual void VisitLandscape(CTileLandscape* landscape) override { mNumLandscape++; }
+        virtual void VisitCoalmine(CTileCoalmine* coalmine) override { mNumCoalmine++; }
+
+        int mNumRoads = 0;
+        int mNumBuildings = 0;
+        int mNumLandscape = 0;
+        int mNumCoalmine = 0;
+    };
+
 	TEST_CLASS(CCityTest)
 	{
 	public:
@@ -94,5 +113,38 @@ namespace Testing
             Assert::IsFalse(iter1 != iter2);
         }
         
+        TEST_METHOD(TestCCityVisitor)
+        {
+            // Construct a city object
+            CCity city;
+
+            // Add some tiles of each time
+            auto tile1 = make_shared<CTileRoad>(&city);
+            auto tile2 = make_shared<CTileBuilding>(&city);
+            auto tile3 = make_shared<CTileLandscape>(&city);
+            auto tile4 = make_shared<CTileCoalmine>(&city);
+
+            city.Add(tile1);
+            city.Add(tile2);
+            city.Add(tile3);
+            city.Add(tile4);
+
+            CTestVisitor visitor;
+            city.Accept(&visitor);
+            Assert::AreEqual(1, visitor.mNumRoads,
+                L"Visitor number of roads");
+
+            Assert::AreEqual(1, visitor.mNumBuildings,
+                L"Visitor number of buildings");
+
+       
+            Assert::AreEqual(1, visitor.mNumLandscape,
+                L"Visitor number of landscapes");
+
+    
+            Assert::AreEqual(1, visitor.mNumCoalmine,
+                L"Visitor number of coalmines");
+
+        }
 	};
 }

@@ -34,14 +34,15 @@
 #define ID_LANDSCAPING_ROAD             32791
 #define ID_BUSINESSES_COALMINE          32793
 #define ID_MOUSE                        32796
-
+#define ID_VIEW_MOUSEHISTORY            32802
+#define ID_BUILDINGS_COUNT              32803
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        317
-#define _APS_NEXT_COMMAND_VALUE         32802
+#define _APS_NEXT_COMMAND_VALUE         32804
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

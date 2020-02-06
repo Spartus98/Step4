@@ -117,6 +117,7 @@ BEGIN
     BEGIN
         MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "&Mouse History",              ID_VIEW_MOUSEHISTORY
     END
     POPUP "&Landscaping"
     BEGIN
@@ -138,6 +139,8 @@ BEGIN
         MENUITEM "&Hospital",                   ID_BUILDINGS_HOSPITAL
         MENUITEM "Market",                      ID_BUILDINGS_MARKET
         MENUITEM "&Condos",                     ID_BUILDINGS_CONDOS
+        MENUITEM SEPARATOR
+        MENUITEM "Count...",                    ID_BUILDINGS_COUNT
     END
     POPUP "B&usinesses"
     BEGIN
