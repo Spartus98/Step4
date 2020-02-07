@@ -53,11 +53,17 @@ public:
     {
     public:
         /** Constructor
-         * \param city The city we are iterating over */
+         * \param city The city we are iterating over 
+         * \param pos The pos we are iterating 
+         */
         Iter(CCity* city, int pos) : mCity(city), mPos(pos) {}
 
         /** Test for end of the iterator
-         * \returns True if we this position equals not equal to the other position */
+         *
+         * \param other Item we are comparing too
+         * 
+         * \returns True if we this position equals not equal to the other position 
+         */
         bool operator!=(const Iter& other) const
         {
             return mPos != other.mPos;

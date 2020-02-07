@@ -1,3 +1,11 @@
+/**
+ * \file TileLandscape.cpp
+ *
+ * \author Zach Fincher
+ *
+ * Base class for tiles of type landscape
+ */
+
 #include "pch.h"
 #include "TileLandscape.h"
 

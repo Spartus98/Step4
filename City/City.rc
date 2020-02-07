@@ -128,6 +128,7 @@ BEGIN
         MENUITEM "Tr&ee ",                      ID_LANDSCAPING_TREE
         MENUITEM "Tree&s",                      ID_LANDSCAPING_TREES
         MENUITEM "&Big Trees",                  ID_LANDSCAPING_BIGTREES
+        MENUITEM "&Garden",                     ID_LANDSCAPING_GARDEN
     END
     POPUP "&Buildings"
     BEGIN
@@ -149,6 +150,11 @@ BEGIN
     POPUP "&Help"
     BEGIN
         MENUITEM "&About City...",              ID_APP_ABOUT
+    END
+    POPUP "&Garden"
+    BEGIN
+        MENUITEM "&Prune",                      ID_GARDEN_PRUNE
+        MENUITEM "Prune &All",                  ID_GARDEN_PRUNEALL
     END
 END
 

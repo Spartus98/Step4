@@ -8,6 +8,7 @@
 #include "TileRoad.h"
 #include "TileCoalmine.h"
 
+#include "TileGarden.h"
 #include "TileVisitor.h"
 
 using namespace std;
@@ -209,7 +210,10 @@ void CCity::XmlTile(const std::shared_ptr<CXmlNode> &node)
     {
         tile = make_shared<CTileCoalmine>(this);
     }
-
+    else if (type == L"garden")
+    {
+        tile = make_shared<CTileGarden>(this);
+    }
     if (tile != nullptr)
     {
         tile->XmlLoad(node);

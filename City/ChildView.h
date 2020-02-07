@@ -65,6 +65,9 @@ private:
 	CPointHistory mMouseHistory;	///< Mouse movement history
 
     bool mShowHistory = false;      ///< bool to show mouse movement history
+
+    bool mGardenPrune = false; ///< bool to prune a single garden
+
 public:
     afx_msg BOOL OnEraseBkgnd(CDC* pDC);
     afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
@@ -91,11 +94,15 @@ public:
     afx_msg void OnLandscapingBigtrees();
     afx_msg void OnLandscapingRoad();
     afx_msg void OnBusinessesCoalmine();
-    /** \endcond */
-
     afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnUpdateViewMousehistory(CCmdUI* pCmdUI);
     afx_msg void OnViewMousehistory();
     afx_msg void OnBuildingsCount();
+    afx_msg void OnLandscapingGarden();
+    afx_msg void OnGardenPruneAll();
+    afx_msg void OnGardenPrune();
+    afx_msg void OnUpdateGardenPrune(CCmdUI* pCmdUI);
+
+    /** \endcond */
 };
 

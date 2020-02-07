@@ -1,4 +1,4 @@
-/**
+ /**
 * \file PointHistory.cpp
 *
 * \author Charles Owen
@@ -25,15 +25,24 @@ public:
 
     void Add(Gdiplus::Point p);
 
+    /**
+    * Class that maintains a iter of Point objects in a list of lists.
+    */
     class Iter
     {
     public:
         /** Constructor
-         * \param mouseHistory The mouseHistory we are iterating over */
-        Iter(CPointHistory *mouseHistory,int list, int pos) : mMouseHistory(mouseHistory),mList(list) ,mPos(pos) {}
+         * \param pointHistory The pointHistory we are iterating over
+         * \param list The current list we are iterating over
+         * \param pos The current pos we are iterating over
+         */
+        Iter(CPointHistory *pointHistory,int list, int pos) : mPointHistory(pointHistory ),mList(list) ,mPos(pos) {}
 
         /** Test for end of the iterator
-         * \returns True if we this position equals not equal to the other position */
+         *\param other Item we are comparing too
+         *\returns True if we this position equals not equal to the other position
+         *
+         */
         bool operator!=(const Iter& other) const
         {
             
@@ -43,7 +52,7 @@ public:
 
         /** Get value at current position
          * \returns Value at mPos in the collection */
-        Gdiplus::Point operator *() const { return mMouseHistory->mPotatoLists[mList][mPos]; }
+        Gdiplus::Point operator *() const { return mPointHistory->mPotatoLists[mList][mPos]; }
 
         /** Increment the iterator
          * \returns Reference to this iterator */
@@ -61,7 +70,7 @@ public:
 
 
     private:
-        CPointHistory *mMouseHistory;   ///< mouseHistory we are iterating over
+        CPointHistory * mPointHistory;   ///< mouseHistory we are iterating over
         int mList;      ///< Current list we are looking at
         int mPos;       ///< Position in the collection
     };

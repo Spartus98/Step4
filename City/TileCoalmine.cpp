@@ -1,3 +1,10 @@
+/**
+ * \file TileCoalmine.cpp
+ *
+ * \author Zach Fincher
+ * Creates a tile of type coal mine
+ */
+
 #include "pch.h"
 #include "TileCoalmine.h"
 

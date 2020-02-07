@@ -1,3 +1,11 @@
+/**
+ * \file BuildingCounter.cpp
+ *
+ * \author Zach Fincher
+ *
+ * Allows us to count all buildings and display to user in pop up
+ */
+
 #include "pch.h"
 #include "BuildingCounter.h"
 /** Visit a CTileBuilding object

@@ -15,6 +15,9 @@
 #include "TileCoalmine.h"
 #include "BuildingCounter.h"
 
+#include "TileGarden.h"
+#include "PruneTilesVisitor.h"
+
 #include <sstream>
 
 
@@ -91,6 +94,10 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_MOUSEHISTORY, &CChildView::OnUpdateViewMousehistory)
     ON_COMMAND(ID_VIEW_MOUSEHISTORY, &CChildView::OnViewMousehistory)
     ON_COMMAND(ID_BUILDINGS_COUNT, &CChildView::OnBuildingsCount)
+    ON_COMMAND(ID_LANDSCAPING_GARDEN, &CChildView::OnLandscapingGarden)
+    ON_COMMAND(ID_GARDEN_PRUNEALL, &CChildView::OnGardenPruneAll)
+    ON_COMMAND(ID_GARDEN_PRUNE, &CChildView::OnGardenPrune)
+    ON_UPDATE_COMMAND_UI(ID_GARDEN_PRUNE, &CChildView::OnUpdateGardenPrune)
 END_MESSAGE_MAP()
 /// \endcond
 
@@ -229,10 +236,11 @@ BOOL CChildView::OnEraseBkgnd(CDC* pDC)
     return TRUE;
 }
 
-/**  Handle a left button double-click on a tile
-* \param nFlags Mouse flags
-* \param point Where we clicked
-*/
+/**
+ * Handle a left button double-click on a tile
+ * \param nFlags Mouse flags
+ * \param point Where we clicked
+ */
 void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
     auto tile = mCity.HitTest(point.x, point.y);
@@ -264,6 +272,24 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
         mCity.MoveToFront(mGrabbedItem);
 
         Invalidate();
+
+        if (!mGardenPrune)
+        {
+            // We grabbed something
+            // Move it to the front
+            mCity.MoveToFront(mGrabbedItem);
+            Invalidate();
+        }
+        else {
+            // Instantiate the visitor
+            CPruneTilesVisitor visitor;
+
+            // Send to JUST this one tile
+            mGrabbedItem->Accept(&visitor);
+
+            // Clear this since we don't want to then drag
+            mGrabbedItem = nullptr;
+        }
     }
 }
 
@@ -507,7 +533,7 @@ void CChildView::OnBusinessesCoalmine()
     Invalidate();
 }
 
-/** \endcond */
+
 
 /** Menu handler that can show Mouse History */
 void CChildView::OnViewMousehistory()
@@ -515,7 +541,11 @@ void CChildView::OnViewMousehistory()
     mShowHistory = !mShowHistory;
 }
 
-/** Menu handler that can show Mouse History, this is what checks the option */
+/**
+ *Menu handler that can show Mouse History, this is what checks the option 
+ *
+ * \param pCmdUI Allows up to do the box check
+ */
 void CChildView::OnUpdateViewMousehistory(CCmdUI* pCmdUI)
 {
     pCmdUI->SetCheck(mShowHistory);
@@ -533,3 +563,39 @@ void CChildView::OnBuildingsCount()
     str << L"There are " << cnt << L" buildings.";
     AfxMessageBox(str.str().c_str());
 }
+
+/** Menu handler that creats a garden */
+void CChildView::OnLandscapingGarden()
+{
+    auto tile = make_shared<CTileGarden>(&mCity);
+    tile->SetLocation(InitialX, InitialY);
+    mCity.Add(tile);
+    Invalidate();
+}
+
+/** Menu handler that prunes all tiles of type garden */
+void CChildView::OnGardenPruneAll()
+{
+    CPruneTilesVisitor visitor;
+    mCity.Accept(&visitor);
+    Invalidate();
+}
+
+/** Menu handler that can prune a tile of type garden */
+void CChildView::OnGardenPrune()
+{
+    mGardenPrune = !mGardenPrune;
+}
+
+/** 
+ *Menu handler that can show allow user to prune tiles of type garden
+ *this is what checks the option 
+ *
+ * \param pCmdUI Allows up to do the box check
+ */
+void CChildView::OnUpdateGardenPrune(CCmdUI* pCmdUI)
+{
+    pCmdUI->SetCheck(mGardenPrune);
+}
+
+/** \endcond */

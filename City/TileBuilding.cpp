@@ -1,3 +1,11 @@
+/**
+ * \file TileBuilding.cpp
+ *
+ * \author Zach Fincher
+ *
+ * Base class for tiles of type building
+ */
+
 #include "pch.h"
 #include "TileBuilding.h"
 

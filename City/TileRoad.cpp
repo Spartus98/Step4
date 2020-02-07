@@ -1,3 +1,11 @@
+/**
+ * \file TileRoad.cpp
+ *
+ * \author Zach Fincher
+ *
+ * Make a tile of type road
+ */
+
 #include "pch.h"
 #include "TileRoad.h"
 

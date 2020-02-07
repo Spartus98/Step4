@@ -72,6 +72,12 @@
     <ClInclude Include="BuildingCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TileGarden.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PruneTilesVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp">
@@ -117,6 +123,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BuildingCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileGarden.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PruneTilesVisitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
